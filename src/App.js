@@ -1,10 +1,22 @@
-// import { useEffect } from "react"
-import "./App.css"
+import { useState } from "react"
+import Records from "./Records"
 
-// const base = ""
-// const key = ""
+const email = "tmalstead@codeforamerica.org"
 
 const App = () => {
+  const [login, setLogin] = useState(false)
+  const [password, setPassword] = useState("")
+
+  const handleChange = (e) => setPassword(e.target.value)
+
+  const validate = (e) => {
+    e.preventDefault()
+    if (password === process.env.REACT_APP_PASSWORD) {
+      setLogin(true)
+      setPassword("")
+    }
+  }
+
   // useEffect(() => {
   //   const getRecords = async () => {
   //     const records = await fetch(
@@ -18,17 +30,35 @@ const App = () => {
 
   return (
     <main className="app">
-      <p>
-        Edit <code>src/App.js</code> and save to reload.
+      <h3>SB Record Keeper</h3>
+      {login ? (
+        <Records setLogin={setLogin} />
+      ) : (
+        <section className="form">
+          <p>Enter password to proceed</p>
+          <form onSubmit={validate}>
+            <input
+              type="password"
+              onChange={handleChange}
+              value={password}
+              autoFocus
+            />
+            <button type="submit">Submit</button>
+          </form>
+        </section>
+      )}
+      <p className="note">
+        Problems?
+        <br />
+        <a
+          className="link"
+          href={`mailto:${email}?subject=SB Record Keeper`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {email}
+        </a>
       </p>
-      <a
-        className="link"
-        href="https://reactjs.org"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Learn React
-      </a>
     </main>
   )
 }
