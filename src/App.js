@@ -2,6 +2,7 @@ import { useState } from "react"
 import Records from "./Records"
 
 const email = "tmalstead@codeforamerica.org"
+console.log(process.env)
 
 const App = () => {
   const [login, setLogin] = useState(false)
