@@ -20,8 +20,16 @@ body {
 }
 
 button {
+  margin: 0.15rem;
   padding: 0.15rem;
   border-radius: 0.15rem;
+  color: white;
+  border: 0.01rem solid #4b4b4b;
+  background-color: #282c34;
+}
+
+:focus {
+  outline: none;
 }
 
 .app {
@@ -41,9 +49,14 @@ button {
 }
 
 .form {
+  margin: 0.25rem 0;
   padding: 2rem;
   border: 0.01rem solid #4b4b4b;
   border-radius: 0.5rem;
+}
+
+.wide {
+  width: 100%;
 }
 
 .note {
