@@ -28,6 +28,10 @@ button {
   background-color: #282c34;
 }
 
+button:hover {
+  transform: scale(1.1);
+}
+
 :focus {
   outline: none;
 }
@@ -35,12 +39,13 @@ button {
 .app {
   text-align: center;
   background-color: #282c34;
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   color: white;
+  padding: 0.5rem;
 }
 
 .link {
@@ -49,16 +54,28 @@ button {
 }
 
 .form {
-  margin: 0.25rem 0;
-  padding: 2rem;
+  padding: 0.5rem;
   border: 0.01rem solid #4b4b4b;
   border-radius: 0.5rem;
 }
 
+.medium {
+  width: 33%;
+}
+
 .wide {
-  width: 100%;
+  width: 95%;
 }
 
 .note {
   font-size: 0.66rem;
+}
+
+.org-names {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+  align-items: center;
+  height: 90%;
+  overflow: scroll;
 }

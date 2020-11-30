@@ -1,8 +1,6 @@
 import { useState } from "react"
 import Records from "./Records"
 
-const email = "tmalstead@codeforamerica.org"
-
 const App = () => {
   const [login, setLogin] = useState(false)
   const [password, setPassword] = useState("")
@@ -18,7 +16,7 @@ const App = () => {
   }
 
   return (
-    <main className="app">
+    <main className="app" style={login ? { justifyContent: "flex-start" } : {}}>
       <h3>SB Record Keeper</h3>
       {login ? (
         <Records setLogin={setLogin} />
@@ -36,18 +34,6 @@ const App = () => {
           </form>
         </section>
       )}
-      <p className="note">
-        Problems?
-        <br />
-        <a
-          className="link"
-          href={`mailto:${email}?subject=SB Record Keeper`}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {email}
-        </a>
-      </p>
     </main>
   )
 }
