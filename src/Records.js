@@ -1,23 +1,28 @@
-import { useEffect } from "react"
+import { useState, useEffect } from "react"
+import fetchAllOrgRecords from "./fetchAllOrgRecords"
 
 const Records = ({ setLogin }) => {
-  const { REACT_APP_AIRTABLE_BASE, REACT_APP_AIRTABLE_API_KEY } = process.env
+  const [fetchedRecords, setFetchedRecords] = useState(null)
 
   useEffect(() => {
-    const getRecords = async () => {
-      const records = await fetch(
-        `https://api.airtable.com/v0/${REACT_APP_AIRTABLE_BASE}/organization?api_key=${REACT_APP_AIRTABLE_API_KEY}`
-      )
-      const translatedRecords = await records.json()
-      console.log(translatedRecords)
-    }
-    getRecords()
-  }, [REACT_APP_AIRTABLE_BASE, REACT_APP_AIRTABLE_API_KEY])
+    fetchAllOrgRecords(setFetchedRecords)
+  }, [])
 
   return (
     <>
-      <span>these are the records</span>
-      <button onClick={() => setLogin(false)}>Logout</button>
+      <div>
+        <button onClick={() => fetchAllOrgRecords(setFetchedRecords)}>
+          Fetch Records
+        </button>
+        <button onClick={() => setLogin(false)}>Logout</button>
+      </div>
+      <section className="form medium org-names">
+        {fetchedRecords ? (
+          fetchedRecords.map((org) => <p>{org.fields.org_name || null}</p>)
+        ) : (
+          <p>Fetching Records...</p>
+        )}
+      </section>
     </>
   )
 }
