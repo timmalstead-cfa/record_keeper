@@ -6,7 +6,7 @@ const fetchAllOrgRecords = async (recordSetFunction) => {
   )
   const translatedNames = await fetchNames.json()
   const sortedNames = translatedNames.records.sort((a, b) =>
-    a.fields.org_name.localeCompare(b.fields.org_name)
+    a.fields.org_name?.localeCompare(b.fields.org_name)
   )
 
   recordSetFunction(sortedNames)
