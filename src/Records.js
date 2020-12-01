@@ -26,6 +26,13 @@ const Records = ({ setLogin }) => {
     disableButtons()
   }, [])
 
+  const setters = {
+    setFetchedRecords,
+    setFullFetchedRecord,
+    buttonDisabled,
+    disableButtons,
+  }
+
   return (
     <>
       <div>
@@ -35,7 +42,9 @@ const Records = ({ setLogin }) => {
         >
           Fetch Records
         </button>
-        <button onClick={() => setLogin(false)}>Logout</button>
+        <button disabled={buttonDisabled} onClick={() => setLogin(false)}>
+          console.warn(); Logout
+        </button>
       </div>
       <div className="border wide org-names pad">
         <section className="border pad margin medium org-names column overflow">
@@ -56,15 +65,17 @@ const Records = ({ setLogin }) => {
           )}
         </section>
         <div className="org-names column flex-space overflow">
-          {fullFetchedRecord && <OrgInfo orgInfo={fullFetchedRecord} />}
+          {fullFetchedRecord && (
+            <OrgInfo orgInfo={fullFetchedRecord} {...setters} />
+          )}
           {Boolean(fullFetchedRecord?.locations?.length) && (
-            <LocationsInfo locInfo={fullFetchedRecord.locations} />
+            <LocationsInfo locInfo={fullFetchedRecord.locations} {...setters} />
           )}
           {Boolean(fullFetchedRecord?.services?.length) && (
-            <ServicesInfo servInfo={fullFetchedRecord.services} />
+            <ServicesInfo servInfo={fullFetchedRecord.services} {...setters} />
           )}
           {Boolean(fullFetchedRecord?.schedule?.length) && (
-            <ScheduleInfo scheInfo={fullFetchedRecord.schedule} />
+            <ScheduleInfo scheInfo={fullFetchedRecord.schedule} {...setters} />
           )}
         </div>
       </div>
