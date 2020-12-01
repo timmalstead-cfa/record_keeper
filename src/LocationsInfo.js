@@ -1,4 +1,6 @@
-const LocationsInfo = ({ locInfo }) => {
+import DeleteButton from "./DeleteButton"
+
+const LocationsInfo = ({ locInfo, ...setters }) => {
   return (
     <section className="border pad wide info overflow column">
       <h3 className="title">Locations Info</h3>
@@ -12,6 +14,7 @@ const LocationsInfo = ({ locInfo }) => {
           phone,
           zip,
           name,
+          air_id,
         } = record
         return (
           <div className="border pad">
@@ -33,6 +36,11 @@ const LocationsInfo = ({ locInfo }) => {
             <p>
               <code>PHONE:</code> {phone}
             </p>
+            <DeleteButton
+              recordNumber={air_id}
+              table="locations"
+              {...setters}
+            />
           </div>
         )
       })}

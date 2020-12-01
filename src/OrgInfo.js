@@ -1,10 +1,13 @@
-const OrgInfo = ({ orgInfo }) => {
+import DeleteButton from "./DeleteButton"
+
+const OrgInfo = ({ orgInfo, ...setters }) => {
   const {
     org_name,
     org_notes,
     org_languages_spoken,
     org_website,
     org_tags,
+    org_air_id,
   } = orgInfo
   return (
     <section className="border pad wide info overflow column">
@@ -35,6 +38,11 @@ const OrgInfo = ({ orgInfo }) => {
         <code>TAGS:</code>{" "}
         {org_tags?.length && org_tags.map((tag) => <span>{tag}, </span>)}
       </p>
+      <DeleteButton
+        recordNumber={org_air_id}
+        table="organization"
+        {...setters}
+      />
     </section>
   )
 }
