@@ -17,6 +17,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;
+  background-color: #282c34;
 }
 
 button {
@@ -26,6 +27,16 @@ button {
   color: white;
   border: 0.01rem solid #4b4b4b;
   background-color: #282c34;
+}
+
+code {
+  color: #92949a;
+  text-transform: uppercase;
+}
+
+button:disabled {
+  background-color: #92949a;
+  cursor: wait;
 }
 
 button:hover {
@@ -38,7 +49,6 @@ button:hover {
 
 .app {
   text-align: center;
-  background-color: #282c34;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -48,15 +58,26 @@ button:hover {
   padding: 0.5rem;
 }
 
+.title {
+  text-decoration: underline;
+}
+
 .link {
   color: #53eb79;
   text-decoration-style: dotted;
 }
 
-.form {
-  padding: 0.5rem;
+.border {
   border: 0.01rem solid #4b4b4b;
   border-radius: 0.5rem;
+}
+
+.pad {
+  padding: 0.5rem;
+}
+
+.margin {
+  margin: 0rem 0.5rem 0 0;
 }
 
 .medium {
@@ -64,7 +85,7 @@ button:hover {
 }
 
 .wide {
-  width: 95%;
+  width: 100%;
 }
 
 .note {
@@ -73,9 +94,41 @@ button:hover {
 
 .org-names {
   display: flex;
-  flex-direction: column;
   align-self: flex-start;
   align-items: center;
-  height: 90%;
+  height: 100%;
+}
+
+.overflow {
   overflow: scroll;
+}
+
+.org-listing {
+  cursor: pointer;
+  margin: 0 0 0.5rem 0;
+  border-bottom: 0.01rem dotted white;
+  min-height: max-content;
+}
+
+.org-listing:hover {
+  color: #53eb79;
+  border-bottom-color: #53eb79;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.flex-space {
+  flex: 1;
+}
+
+.info {
+  min-height: 50%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.services-info {
+  justify-content: flex-start;
 }
