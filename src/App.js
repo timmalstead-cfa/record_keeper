@@ -17,11 +17,11 @@ const App = () => {
 
   return (
     <main className="app" style={login ? { justifyContent: "flex-start" } : {}}>
-      <h3>SB Record Keeper</h3>
+      <h3 className="title">SB Record Keeper</h3>
       {login ? (
         <Records setLogin={setLogin} />
       ) : (
-        <section className="form">
+        <section className="form border pad">
           <p>Enter password to proceed</p>
           <form onSubmit={validate}>
             <input

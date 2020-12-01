@@ -1,5 +1,3 @@
-// "recD6QOJgdqlHyMrq"
-
 const fetchSingleRecord = async (recordNum, setStateAction) => {
   const { REACT_APP_AIRTABLE_BASE, REACT_APP_AIRTABLE_API_KEY } = process.env
 
@@ -43,35 +41,50 @@ const fetchSingleRecord = async (recordNum, setStateAction) => {
 
   for (let i = 0; i < servInfo.recordNum; i++)
     orgInfo.services.push({
-      air_id: orgInfo.org_services[i],
-      id: servInfo.services_id[i],
-      name: servInfo.services_names[i],
+      air_id: orgInfo.org_services[i] || null,
+      id: servInfo.services_id[i] || null,
+      name: servInfo.services_names[i] || null,
     })
 
-  for (let i = 0; i < scheInfo.recordNum; i++)
-    orgInfo.schedule.push({
-      open: `${scheInfo.schedule_open_time[i]} ${scheInfo.schedule_open_am_pm[i]}`,
-      close: `${scheInfo.schedule_close_time[i]} ${scheInfo.schedule_open_am_pm[i]}`,
-      days: scheInfo.schedule_day[i],
-      weeks_open: scheInfo.schedule_ordinal_open[i],
-      location_id: scheInfo.schedule_locations_id[i],
-      air_id: orgInfo.org_schedule[i],
-    })
+  for (let i = 0; i < locInfo.recordNum; i++) {
+    const objToPush = {
+      address: locInfo.location_address[i] || null,
+      services: locInfo.location_services[i] || null,
+      state: locInfo.location_state[i] || null,
+      city: locInfo.locations_city[i] || null,
+      id: locInfo.locations_id[i] || null,
+      air_id: orgInfo.org_locations[i] || null,
+    }
+    if (locInfo.location_phone && locInfo.location_phone[i])
+      objToPush.phone = locInfo.location_phone[i]
+    if (locInfo.location_zip && locInfo.location_zip[i])
+      objToPush.zip = locInfo.location_zip[i]
+    if (locInfo.location_name && locInfo.location_name[i])
+      objToPush.name = locInfo.location_name[i]
+    orgInfo.locations.push(objToPush)
+  }
 
-  for (let i = 0; i < locInfo.recordNum; i++)
-    orgInfo.locations.push({
-      address: locInfo.location_address[i],
-      phone: locInfo.location_phone[i],
-      services: locInfo.location_services[i],
-      state: locInfo.location_state[i],
-      zip: locInfo.location_zip[i],
-      city: locInfo.locations_city[i],
-      id: locInfo.locations_id[i],
-      air_id: orgInfo.org_locations[i],
-    })
+  for (let i = 0; i < scheInfo.recordNum; i++) {
+    const objToPush = {
+      open:
+        `${scheInfo.schedule_open_time[i]} ${scheInfo.schedule_open_am_pm[i]}` ||
+        null,
+      close:
+        `${scheInfo.schedule_close_time[i]} ${scheInfo.schedule_open_am_pm[i]}` ||
+        null,
+      days: scheInfo.schedule_day[i] || null,
+      weeks_open: scheInfo.schedule_ordinal_open[i] || null,
+      location_id: scheInfo.schedule_locations_id[i] || null,
+      air_id: orgInfo.org_schedule[i] || null,
+    }
+
+    if (scheInfo.schedule_location_name && scheInfo.schedule_location_name[i])
+      objToPush.location_name = scheInfo.schedule_location_name[i]
+
+    orgInfo.schedule.push(objToPush)
+  }
 
   setStateAction(orgInfo)
-  console.log("firing")
 }
 
 export default fetchSingleRecord
