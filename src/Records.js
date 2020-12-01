@@ -43,7 +43,7 @@ const Records = ({ setLogin }) => {
           Fetch Records
         </button>
         <button disabled={buttonDisabled} onClick={() => setLogin(false)}>
-          console.warn(); Logout
+          Logout
         </button>
       </div>
       <div className="border wide org-names pad">
