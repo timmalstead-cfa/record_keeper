@@ -12,6 +12,8 @@ const CreateService = ({
 }) => {
   const [showServiceNameField, setShowServiceNameField] = useState(false)
   const [serviceName, setServiceName] = useState("")
+  // const [existingServices, setExistingServices] = useState([])
+  // const [existingServiceId, setExistingServiceId] = useState("")
   const [tickBoxes, setTickBoxes] = useState(
     locations.map((record) => {
       const { air_id, address, city, zip } = record
@@ -20,12 +22,57 @@ const CreateService = ({
   )
 
   const showOrSubmit = async () => {
+    const locationsToLink = tickBoxes.reduce((arr, val) => {
+      if (val.checked) arr.push(val.air_id)
+      return arr
+    }, [])
+
+    // if (!existingServices.length) {
+    //   const showExistingServices = await fetch(
+    //     `https://api.airtable.com/v0/${REACT_APP_AIRTABLE_BASE}/services?fields%5B%5D=name&api_key=${REACT_APP_AIRTABLE_API_KEY}`
+    //   )
+    //   disableButtons()
+    //   const servicesTranslated = await showExistingServices.json()
+    //   setExistingServices(
+    //     servicesTranslated.records.sort((a, b) =>
+    //       a.fields.name?.localeCompare(b.fields.name)
+    //     )
+    //   )
+    // }
+
     if (!showServiceNameField) setShowServiceNameField(true)
-    else if (showServiceNameField && serviceName) {
-      const locationsToLink = tickBoxes.reduce((arr, val) => {
-        if (val.checked) arr.push(val.air_id)
-        return arr
-      }, [])
+    // else if (showServiceNameField && !serviceName && existingServiceId) {
+    //   const patchExistingService = await fetch(
+    //     `https://api.airtable.com/v0/${REACT_APP_AIRTABLE_BASE}/services/${existingServiceId}`,
+    //     {
+    //       method: "PATCH",
+    //       headers: {
+    //         Authorization: `Bearer ${REACT_APP_AIRTABLE_API_KEY}`,
+    //         "Content-Type": "application/json",
+    //       },
+    //       body: `{
+    //           "fields": {
+    //             "locations": ${JSON.stringify(locationsToLink)},
+    //             "organization": [
+    //               "${org_id}"
+    //             ]
+    //           }
+    //         }`,
+    //     }
+    //   )
+    //   const patchResponse = await patchExistingService.json()
+    //   console.log(patchResponse)
+    //   setExistingServiceId("")
+    //   setShowServiceNameField(false)
+    //   fetchSingleRecord(org_id, setFullFetchedRecord)
+    //   disableButtons()
+    // }
+    else if (
+      showServiceNameField &&
+      serviceName &&
+      locationsToLink.length
+      // && !existingServiceId
+    ) {
       const addService = await fetch(
         `https://api.airtable.com/v0/${REACT_APP_AIRTABLE_BASE}/services`,
         {
@@ -35,14 +82,14 @@ const CreateService = ({
             "Content-Type": "application/json",
           },
           body: `{
-            "fields": {
-              "name": "${serviceName}",
-              "locations": ${JSON.stringify(locationsToLink)},
-              "organization": [
-                "${org_id}"
-              ]
-            }
-          }`,
+              "fields": {
+                "name": "${serviceName}",
+                "locations": ${JSON.stringify(locationsToLink)},
+                "organization": [
+                  "${org_id}"
+                ]
+              }
+            }`,
         }
       )
 
@@ -55,7 +102,15 @@ const CreateService = ({
     }
   }
 
-  const handleChange = (e) => setServiceName(e.target.value)
+  const handleChange = (e) => {
+    // setExistingServiceId("")
+    setServiceName(e.target.value)
+  }
+
+  // const handleDropdown = ({ target }) => {
+  //   setExistingServiceId(target.value)
+  //   setServiceName("")
+  // }
 
   const handleTick = ({ target }) => {
     const { value, checked } = target
@@ -71,7 +126,16 @@ const CreateService = ({
     <>
       {showServiceNameField && (
         <>
-          <input onChange={handleChange} value={serviceName} autoFocus />
+          {/* {Boolean(existingServices?.length) && (
+            <select name="Existing Services" onChange={handleDropdown}>
+              {existingServices.map((record) => {
+                const { id, fields } = record
+                const { name } = fields
+                return <option value={id}>{name}</option>
+              })}
+            </select>
+          )} */}
+          <input onChange={handleChange} value={serviceName} />
           {Boolean(tickBoxes.length) &&
             tickBoxes.map((record) => {
               const { air_id, label } = record
@@ -95,7 +159,8 @@ const CreateService = ({
         </>
       )}
       <button disabled={buttonDisabled} onClick={showOrSubmit}>
-        Add Record
+        {/* {existingServiceId ? "Append Existing Service" : "Add New Service"} */}
+        Add New Service
       </button>
     </>
   )

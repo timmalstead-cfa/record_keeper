@@ -1,4 +1,5 @@
 import DeleteButton from "./DeleteButton"
+import CreateSchedule from "./CreateSchedule"
 
 const ScheduleInfo = ({ scheInfo, ...setters }) => {
   return (
@@ -24,6 +25,7 @@ const ScheduleInfo = ({ scheInfo, ...setters }) => {
           </div>
         )
       })}
+      <CreateSchedule {...setters} />
     </section>
   )
 }
