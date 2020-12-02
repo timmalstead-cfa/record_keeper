@@ -2,7 +2,7 @@ import { useState } from "react"
 import Records from "./Records"
 
 const App = () => {
-  const [login, setLogin] = useState(true)
+  const [login, setLogin] = useState(false)
   const [password, setPassword] = useState("")
 
   const handleChange = (e) => setPassword(e.target.value)
