@@ -31,6 +31,8 @@ const Records = ({ setLogin }) => {
     setFullFetchedRecord,
     buttonDisabled,
     disableButtons,
+    org_id: fullFetchedRecord?.org_air_id,
+    locations: fullFetchedRecord?.locations,
   }
 
   return (
@@ -68,13 +70,17 @@ const Records = ({ setLogin }) => {
           {fullFetchedRecord && (
             <OrgInfo orgInfo={fullFetchedRecord} {...setters} />
           )}
-          {Boolean(fullFetchedRecord?.locations?.length) && (
+          {Boolean(fullFetchedRecord?.locations) && (
             <LocationsInfo locInfo={fullFetchedRecord.locations} {...setters} />
           )}
-          {Boolean(fullFetchedRecord?.services?.length) && (
-            <ServicesInfo servInfo={fullFetchedRecord.services} {...setters} />
+          {Boolean(fullFetchedRecord?.services) && (
+            <ServicesInfo
+              org_id={fullFetchedRecord.org_air_id}
+              servInfo={fullFetchedRecord.services}
+              {...setters}
+            />
           )}
-          {Boolean(fullFetchedRecord?.schedule?.length) && (
+          {Boolean(fullFetchedRecord?.schedule) && (
             <ScheduleInfo scheInfo={fullFetchedRecord.schedule} {...setters} />
           )}
         </div>

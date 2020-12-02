@@ -35,7 +35,7 @@ const fetchSingleRecord = async (recordNum, setStateAction) => {
       scheInfo[prop] = fields[prop]
     } else {
       servInfo[prop] = fields[prop]
-      servInfo.recordNum = ++servInfo.recordNum || 1
+      if (!servInfo.recordNum) servInfo.recordNum = fields[prop].length
     }
   }
 
@@ -44,6 +44,7 @@ const fetchSingleRecord = async (recordNum, setStateAction) => {
       air_id: orgInfo.org_services[i] || null,
       id: servInfo.services_id[i] || null,
       name: servInfo.services_names[i] || null,
+      org_id: translatedRecord.id || null,
     })
 
   for (let i = 0; i < locInfo.recordNum; i++) {

@@ -1,4 +1,5 @@
 import DeleteButton from "./DeleteButton"
+import CreateService from "./CreateService"
 
 const ServicesInfo = ({ servInfo, ...setters }) => {
   return (
@@ -13,6 +14,7 @@ const ServicesInfo = ({ servInfo, ...setters }) => {
           </p>
         )
       })}
+      <CreateService {...setters} />
     </section>
   )
 }
