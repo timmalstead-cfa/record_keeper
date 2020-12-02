@@ -25,7 +25,7 @@ const ScheduleInfo = ({ scheInfo, ...setters }) => {
           </div>
         )
       })}
-      <CreateSchedule />
+      <CreateSchedule {...setters} />
     </section>
   )
 }
