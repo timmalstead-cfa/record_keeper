@@ -4,6 +4,7 @@ import fetchSingleRecord from "./fetchSingleRecord"
 const { REACT_APP_AIRTABLE_BASE, REACT_APP_AIRTABLE_API_KEY } = process.env
 
 const DeleteButton = ({
+  org_id,
   table,
   recordNumber,
   setFetchedRecords,
@@ -26,8 +27,8 @@ const DeleteButton = ({
       const deleteResponse = await deleteRequest.json()
       console.log(deleteResponse)
       fetchAllOrgRecords(setFetchedRecords)
-      if (table === "organization") setFullFetchedRecord(null)
-      else fetchSingleRecord(recordNumber, setFullFetchedRecord)
+      if (table !== "organization")
+        fetchSingleRecord(org_id, setFullFetchedRecord)
       disableButtons()
     }
   }
