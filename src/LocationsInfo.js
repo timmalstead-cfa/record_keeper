@@ -1,4 +1,5 @@
 import DeleteButton from "./DeleteButton"
+import CreateLocation from "./CreateLocation"
 
 const LocationsInfo = ({ locInfo, ...setters }) => {
   return (
@@ -44,6 +45,7 @@ const LocationsInfo = ({ locInfo, ...setters }) => {
           </div>
         )
       })}
+      <CreateLocation {...setters} />
     </section>
   )
 }

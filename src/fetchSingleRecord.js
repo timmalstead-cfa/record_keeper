@@ -65,14 +65,19 @@ const fetchSingleRecord = async (recordNum, setStateAction) => {
     orgInfo.locations.push(objToPush)
   }
 
+  var timeParser = (timeStr) => {
+    const splitTime = timeStr.split(":")
+    splitTime[0] = +splitTime[0]
+    const amOrPm = splitTime[0] > 11 && splitTime[0] < 24 ? "PM" : "AM"
+    if (!splitTime[0] || splitTime[0] === 12) splitTime[0] = "12"
+    else if (splitTime[0] > 12) splitTime[0] = String(splitTime[0] - 12)
+    return `${splitTime[0]}:${splitTime[1]} ${amOrPm}`
+  }
+
   for (let i = 0; i < scheInfo.recordNum; i++) {
     const objToPush = {
-      open:
-        `${scheInfo.schedule_open_time[i]} ${scheInfo.schedule_open_am_pm[i]}` ||
-        null,
-      close:
-        `${scheInfo.schedule_close_time[i]} ${scheInfo.schedule_open_am_pm[i]}` ||
-        null,
+      open: timeParser(scheInfo.schedule_open_time[i]) || null,
+      close: timeParser(scheInfo.schedule_close_time[i]) || null,
       days: scheInfo.schedule_day[i] || null,
       weeks_open: scheInfo.schedule_ordinal_open[i] || null,
       location_id: scheInfo.schedule_locations_id[i] || null,
