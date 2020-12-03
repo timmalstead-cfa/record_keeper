@@ -44,6 +44,12 @@ const Records = ({ setLogin }) => {
         >
           Fetch Records
         </button>
+        <button
+          disabled={buttonDisabled}
+          onClick={() => setFullFetchedRecord({})}
+        >
+          Create New Organization
+        </button>
         <button disabled={buttonDisabled} onClick={() => setLogin(false)}>
           Logout
         </button>
