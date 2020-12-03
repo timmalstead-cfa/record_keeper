@@ -1,15 +1,18 @@
 import { useState } from "react"
 import Records from "./Records"
 
+const { NODE_ENV, REACT_APP_PASSWORD } = process.env
+const loginForDev = NODE_ENV === "development"
+
 const App = () => {
-  const [login, setLogin] = useState(false)
+  const [login, setLogin] = useState(loginForDev)
   const [password, setPassword] = useState("")
 
   const handleChange = (e) => setPassword(e.target.value)
 
   const validate = (e) => {
     e.preventDefault()
-    if (password === process.env.REACT_APP_PASSWORD) {
+    if (password === REACT_APP_PASSWORD) {
       setLogin(true)
       setPassword("")
     }

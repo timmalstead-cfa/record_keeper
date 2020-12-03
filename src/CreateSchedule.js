@@ -55,19 +55,19 @@ const CreateSchedule = ({
     const daysKeys = Object.keys(scheduleInfo.days)
     const daysValues = Object.values(scheduleInfo.days)
 
-    const newDaysString = daysValues.reduce((str, val, i, arr) => {
+    const newDaysString = daysValues.reduce((str, val, i) => {
       if (val) {
-        str += daysKeys[i]
-        if (i + 1 !== arr.length) str += ", "
+        if (!str) str += daysKeys[i]
+        else str += `, ${daysKeys[i]}`
       }
       return str
     }, "")
 
     const ordinalString = Object.values(scheduleInfo.ordinal_open).reduce(
-      (str, val, i, arr) => {
+      (str, val) => {
         if (val.open) {
-          str += val.value
-          if (i + 1 !== arr.length) str += ", "
+          if (!str) str += val.value
+          else str += `, ${val.value}`
         }
         return str
       },

@@ -65,7 +65,7 @@ const fetchSingleRecord = async (recordNum, setStateAction) => {
     orgInfo.locations.push(objToPush)
   }
 
-  var timeParser = (timeStr) => {
+  const timeParser = (timeStr) => {
     const splitTime = timeStr.split(":")
     splitTime[0] = +splitTime[0]
     const amOrPm = splitTime[0] > 11 && splitTime[0] < 24 ? "PM" : "AM"

@@ -19,7 +19,7 @@ const ScheduleInfo = ({ scheInfo, ...setters }) => {
               <code>TIME:</code> {`${open} to ${close}`}
             </p>
             <p>
-              <code>ORDINAL:</code> {weeks_open}
+              <code>WEEKS OPEN:</code> {weeks_open}
             </p>
             <DeleteButton recordNumber={air_id} table="schedule" {...setters} />
           </div>
