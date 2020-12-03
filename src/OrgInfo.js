@@ -4,9 +4,10 @@ import CreateOrganization from "./CreateOrganization"
 const OrgInfo = ({ orgInfo, ...setters }) => {
   const {
     org_name,
-    org_notes,
-    org_languages_spoken,
     org_website,
+    org_languages_spoken,
+    org_customers_served,
+    org_notes,
     org_tags,
     org_air_id,
   } = orgInfo
@@ -31,15 +32,27 @@ const OrgInfo = ({ orgInfo, ...setters }) => {
               </a>
             </p>
           )}
-          <p>
-            <code>LANGUAGES SPOKEN:</code> {org_languages_spoken || ""}
-          </p>
-          <p>
-            <code>NOTES:</code> {org_notes || ""}
-          </p>
+          {org_languages_spoken && (
+            <p>
+              <code>LANGUAGES SPOKEN:</code> {org_languages_spoken}
+            </p>
+          )}
+          {org_customers_served && (
+            <p>
+              <code>CUSTOMERS SERVED:</code> {org_customers_served}
+            </p>
+          )}
+          {org_notes && (
+            <p>
+              <code>NOTES:</code> {org_notes}
+            </p>
+          )}
           <p>
             <code>TAGS:</code>{" "}
-            {org_tags?.length && org_tags.map((tag) => <span>{tag}, </span>)}
+            {org_tags?.length &&
+              org_tags.map((tag, i) => (
+                <span>{i === 0 ? tag : `, ${tag}`} </span>
+              ))}
           </p>
           <DeleteButton
             recordNumber={org_air_id}

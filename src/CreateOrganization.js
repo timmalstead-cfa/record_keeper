@@ -8,7 +8,8 @@ const { REACT_APP_AIRTABLE_BASE, REACT_APP_AIRTABLE_API_KEY } = process.env
 const initialOrgInfo = {
   org_name: "",
   org_website: "",
-  org_languages_spoken: "",
+  org_languages_spoken: "English",
+  org_customers_served: "",
   org_notes: "",
 }
 
@@ -32,7 +33,13 @@ const CreateOrganization = ({
 
   const submitOrg = async () => {
     try {
-      const { org_name, org_website, org_notes } = orgInfo
+      const {
+        org_name,
+        org_website,
+        org_notes,
+        org_customers_served,
+        org_languages_spoken,
+      } = orgInfo
 
       if (!org_name) throw new Error("Organization name is required")
       if (org_website) {
@@ -41,6 +48,20 @@ const CreateOrganization = ({
             "If included, a complete and valid URL must be provided"
           )
       }
+      // const csvCheck = /(.+?)(?:,|$)/g
+      // if (org_customers_served) {
+      //   if (!csvCheck.test(org_customers_served))
+      //     throw new Error(
+      //       "Customers served must be input as comma separated values"
+      //     )
+      // }
+
+      // if (org_languages_spoken) {
+      //   if (!csvCheck.test(org_languages_spoken))
+      //     throw new Error(
+      //       "Languages spoken must be input as comma separated values"
+      //     )
+      // }
 
       const addOrg = await fetch(
         `https://api.airtable.com/v0/${REACT_APP_AIRTABLE_BASE}/organization`,
@@ -54,7 +75,8 @@ const CreateOrganization = ({
             "fields": {
               "org_name": "${org_name}",
               "org_website": "${org_website}",
-              "org_languages_spoken": "English",
+              "org_languages_spoken": "${org_languages_spoken}",
+              "org_customers_served" : "${org_customers_served}",
               "org_notes": "${org_notes}"
             }
           }`,
@@ -86,6 +108,24 @@ const CreateOrganization = ({
           name="org_website"
           onChange={handleChange}
           value={orgInfo.org_website}
+        />
+      </div>
+      <div style={stackStyle}>
+        <label>
+          Languages Spoken <code>comma separated values</code>:
+        </label>
+        <input
+          name="org_languages_spoken"
+          onChange={handleChange}
+          value={orgInfo.org_languages_spoken}
+        />
+        <label>
+          Customers Served <code>comma separated values</code>:
+        </label>
+        <input
+          name="org_customers_served"
+          onChange={handleChange}
+          value={orgInfo.org_customers_served}
         />
       </div>
       <div style={stackStyle}>
