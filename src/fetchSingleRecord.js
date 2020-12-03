@@ -55,13 +55,20 @@ const fetchSingleRecord = async (recordNum, setStateAction) => {
       city: locInfo.locations_city[i] || null,
       id: locInfo.locations_id[i] || null,
       air_id: orgInfo.org_locations[i] || null,
+      zip: locInfo.location_zip[i] || null,
     }
     if (locInfo.location_phone && locInfo.location_phone[i])
       objToPush.phone = locInfo.location_phone[i]
-    if (locInfo.location_zip && locInfo.location_zip[i])
-      objToPush.zip = locInfo.location_zip[i]
+    if (locInfo.location_address_2 && locInfo.location_address_2[i])
+      objToPush.address_2 = locInfo.location_address_2[i]
     if (locInfo.location_name && locInfo.location_name[i])
       objToPush.name = locInfo.location_name[i]
+    if (locInfo.location_email && locInfo.location_email[i])
+      objToPush.email = locInfo.location_email[i]
+    if (locInfo.location_website && locInfo.location_website[i])
+      objToPush.location_website = locInfo.location_website[i]
+    if (locInfo.location_notes && locInfo.location_notes[i])
+      objToPush.location_notes = locInfo.location_notes[i]
     orgInfo.locations.push(objToPush)
   }
 
