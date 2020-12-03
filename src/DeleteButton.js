@@ -29,6 +29,7 @@ const DeleteButton = ({
       fetchAllOrgRecords(setFetchedRecords)
       if (table !== "organization")
         fetchSingleRecord(org_id, setFullFetchedRecord)
+      else setFullFetchedRecord(null)
       disableButtons()
     }
   }
