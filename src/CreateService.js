@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import fetchSingleRecord from "./fetchSingleRecord"
 
 const { REACT_APP_AIRTABLE_BASE, REACT_APP_AIRTABLE_API_KEY } = process.env
@@ -14,12 +14,15 @@ const CreateService = ({
   const [serviceName, setServiceName] = useState("")
   // const [existingServices, setExistingServices] = useState([])
   // const [existingServiceId, setExistingServiceId] = useState("")
-  const [tickBoxes, setTickBoxes] = useState(
-    locations.map((record) => {
+  const [tickBoxes, setTickBoxes] = useState(null)
+
+  useEffect(() => {
+    const collapsedLocations = locations.map((record) => {
       const { air_id, address, city, zip } = record
       return { air_id, label: `${address}, ${city} ${zip}`, checked: false }
     })
-  )
+    setTickBoxes(collapsedLocations)
+  }, [locations])
 
   const showOrSubmit = async () => {
     const locationsToLink = tickBoxes.reduce((arr, val) => {
