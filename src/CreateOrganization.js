@@ -1,6 +1,7 @@
 import { useState } from "react"
 import fetchSingleRecord from "./fetchSingleRecord"
 import fetchAllOrgRecords from "./fetchAllOrgRecords"
+import { urlRegex } from "./helpers"
 
 const { REACT_APP_AIRTABLE_BASE, REACT_APP_AIRTABLE_API_KEY } = process.env
 
@@ -34,6 +35,12 @@ const CreateOrganization = ({
       const { org_name, org_website, org_notes } = orgInfo
 
       if (!org_name) throw new Error("Organization name is required")
+      if (org_website) {
+        if (!urlRegex.test(org_website))
+          throw new Error(
+            "If included, a complete and valid URL must be provided"
+          )
+      }
 
       const addOrg = await fetch(
         `https://api.airtable.com/v0/${REACT_APP_AIRTABLE_BASE}/organization`,

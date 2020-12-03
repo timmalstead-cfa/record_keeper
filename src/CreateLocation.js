@@ -1,6 +1,6 @@
 import { useState } from "react"
 import fetchSingleRecord from "./fetchSingleRecord"
-import states from "./states"
+import { states, urlRegex, emailRegex } from "./helpers"
 
 const { REACT_APP_AIRTABLE_BASE, REACT_APP_AIRTABLE_API_KEY } = process.env
 const stackStyle = {
@@ -17,6 +17,9 @@ const defaultLocationInfo = {
   zip: "",
   organization: [],
   phone: "",
+  location_website: "",
+  location_name: "",
+  email: "",
 }
 
 const CreateLocation = ({
@@ -37,7 +40,17 @@ const CreateLocation = ({
 
     if (showCreateLocation) {
       try {
-        const { address, address_2, city, zip, phone, state } = locationInfo
+        const {
+          address,
+          address_2,
+          city,
+          zip,
+          phone,
+          state,
+          location_website,
+          location_name,
+          email,
+        } = locationInfo
 
         if (!city) throw new Error("City is required")
         if (!address) throw new Error("Address is required")
@@ -50,6 +63,19 @@ const CreateLocation = ({
           if (!validPhoneNumber.test(phone))
             throw new Error(
               "If provided, phone number must be ten digits with no dashes or spaces"
+            )
+        }
+        if (location_website) {
+          if (!urlRegex.test(location_website))
+            throw new Error(
+              "If included, a complete and valid URL must be provided"
+            )
+        }
+
+        if (email) {
+          if (!emailRegex.test(email))
+            throw new Error(
+              "If included, a valid email address must be provided"
             )
         }
 
@@ -71,7 +97,10 @@ const CreateLocation = ({
                 "organization": [
                   "${org_id}"
                 ],
-                "phone": "${phone}"
+                "phone": "${phone}",
+                "location_website": "${location_website}",
+                "location_name": "${location_name}",
+                "email": "${email}"
               }
             }`,
           }
@@ -143,6 +172,31 @@ const CreateLocation = ({
               minLength={10}
               size={10}
               value={locationInfo.phone}
+              onChange={handleChange}
+            />
+          </div>
+          <div style={stackStyle}>
+            <label for="location_name">Location Name</label>
+            <input
+              type="text"
+              name="location_name"
+              value={locationInfo.location_name}
+              onChange={handleChange}
+            />
+            <label for="location_website">Location Specific Website</label>
+            <input
+              type="text"
+              name="location_website"
+              value={locationInfo.location_website}
+              onChange={handleChange}
+            />
+          </div>
+          <div style={stackStyle}>
+            <label for="email">Email</label>
+            <input
+              type="text"
+              name="email"
+              value={locationInfo.email}
               onChange={handleChange}
             />
           </div>

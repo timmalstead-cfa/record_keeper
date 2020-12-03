@@ -16,6 +16,9 @@ const LocationsInfo = ({ locInfo, ...setters }) => {
           zip,
           name,
           air_id,
+          email,
+          location_website,
+          location_notes,
         } = record
         return (
           <div className="border pad">
@@ -34,9 +37,26 @@ const LocationsInfo = ({ locInfo, ...setters }) => {
             <p>
               <code>SERVICES:</code> {services}
             </p>
-            <p>
-              <code>PHONE:</code> {phone}
-            </p>
+            {phone && (
+              <p>
+                <code>PHONE:</code> {phone}
+              </p>
+            )}
+            {email && (
+              <p>
+                <code>EMAIL:</code> {email}
+              </p>
+            )}
+            {location_website && (
+              <p>
+                <code>LOCATION WEBSITE:</code> {location_website}
+              </p>
+            )}
+            {location_notes && (
+              <p>
+                <code>LOCATION NOTES:</code> {location_notes}
+              </p>
+            )}
             <DeleteButton
               recordNumber={air_id}
               table="locations"
