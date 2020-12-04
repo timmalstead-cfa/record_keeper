@@ -1,5 +1,6 @@
-import DeleteButton from "./DeleteButton"
+// import DeleteButton from "./DeleteButton"
 import CreateService from "./CreateService"
+import AddExistingService from "./AddExistingService"
 
 const ServicesInfo = ({ servInfo, ...setters }) => {
   return (
@@ -10,10 +11,11 @@ const ServicesInfo = ({ servInfo, ...setters }) => {
         return (
           <p>
             <code>SERVICE OFFERED:</code> {name}
-            <DeleteButton recordNumber={air_id} table="services" {...setters} />
+            {/* <DeleteButton recordNumber={air_id} table="services" {...setters} /> */}
           </p>
         )
       })}
+      <AddExistingService {...setters} />
       <CreateService {...setters} />
     </section>
   )
