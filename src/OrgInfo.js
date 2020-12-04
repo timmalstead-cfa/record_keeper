@@ -1,5 +1,6 @@
 import DeleteButton from "./DeleteButton"
 import CreateOrganization from "./CreateOrganization"
+import CreateTags from "./CreateTags"
 
 const OrgInfo = ({ orgInfo, ...setters }) => {
   const {
@@ -54,6 +55,7 @@ const OrgInfo = ({ orgInfo, ...setters }) => {
                 <span>{i === 0 ? tag : `, ${tag}`} </span>
               ))}
           </p>
+          <CreateTags orgInfo={orgInfo} {...setters} />
           <DeleteButton
             recordNumber={org_air_id}
             table="organization"

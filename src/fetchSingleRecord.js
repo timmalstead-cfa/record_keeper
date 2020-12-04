@@ -83,14 +83,18 @@ const fetchSingleRecord = async (recordNum, setStateAction) => {
 
   for (let i = 0; i < scheInfo.recordNum; i++) {
     const objToPush = {
-      open: timeParser(scheInfo.schedule_open_time[i]) || null,
-      close: timeParser(scheInfo.schedule_close_time[i]) || null,
-      days: scheInfo.schedule_day[i] || null,
-      weeks_open: scheInfo.schedule_ordinal_open[i] || null,
       location_id: scheInfo.schedule_locations_id[i] || null,
       air_id: orgInfo.org_schedule[i] || null,
     }
 
+    if (scheInfo.schedule_open_time && scheInfo.schedule_open_time[i])
+      objToPush.open = timeParser(scheInfo.schedule_open_time[i])
+    if (scheInfo.schedule_close_time && scheInfo.schedule_close_time[i])
+      objToPush.close = timeParser(scheInfo.schedule_close_time[i])
+    if (scheInfo.schedule_day && scheInfo.schedule_day[i])
+      objToPush.days = scheInfo.schedule_day[i]
+    if (scheInfo.schedule_ordinal_open && scheInfo.schedule_ordinal_open[i])
+      objToPush.weeks_open = scheInfo.schedule_ordinal_open[i]
     if (scheInfo.schedule_location_name && scheInfo.schedule_location_name[i])
       objToPush.location_name = scheInfo.schedule_location_name[i]
 
