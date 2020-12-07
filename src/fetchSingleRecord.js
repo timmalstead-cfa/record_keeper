@@ -88,6 +88,8 @@ const fetchSingleRecord = async (recordNum, setStateAction) => {
       location_id: scheInfo.schedule_locations_id[i] || null,
     }
 
+    if (scheInfo.schedule_notes && scheInfo.schedule_notes[i])
+      objToPush.notes = scheInfo.schedule_notes[i]
     if (orgInfo.org_schedule && orgInfo.org_schedule[i])
       objToPush.air_id = orgInfo.org_schedule[i]
     if (scheInfo.schedule_open_time && scheInfo.schedule_open_time[i])

@@ -25,6 +25,7 @@ const defaultInfo = {
     Fifth: { value: "5", open: true },
   },
   organization: [],
+  notes: "",
 }
 
 const CreateSchedule = ({
@@ -77,7 +78,11 @@ const CreateSchedule = ({
     if (!showCreateSchedule) {
       setShowCreateSchedule(true)
     } else if (showCreateSchedule && locationsToLink.length && newDaysString) {
-      const { open_time, close_time } = scheduleInfo
+      const {
+        open_time,
+        close_time,
+        // notes
+      } = scheduleInfo
 
       const addSchedule = await fetch(
         `https://api.airtable.com/v0/${REACT_APP_AIRTABLE_BASE}/schedule`,
@@ -223,6 +228,13 @@ const CreateSchedule = ({
                   </div>
                 )
               })}
+            {/* <label>Notes:</label>
+            <input
+              value={scheduleInfo.notes}
+              onChange={(e) =>
+                setScheduleInfo({ ...scheduleInfo, notes: e.target.value })
+              }
+            /> */}
           </form>
         </>
       )}
