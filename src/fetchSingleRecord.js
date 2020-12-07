@@ -57,7 +57,7 @@ const fetchSingleRecord = async (recordNum, setStateAction) => {
       zip: locInfo.location_zip[i] || null,
     }
 
-    if (locInfo.services && locInfo.services[i])
+    if (locInfo.location_services && locInfo.location_services[i])
       objToPush.services = locInfo.location_services[i]
     if (locInfo.location_phone && locInfo.location_phone[i])
       objToPush.phone = locInfo.location_phone[i]
@@ -73,6 +73,7 @@ const fetchSingleRecord = async (recordNum, setStateAction) => {
       objToPush.location_notes = locInfo.location_notes[i]
     orgInfo.locations.push(objToPush)
   }
+  console.log(orgInfo.locations)
 
   const timeParser = (timeStr) => {
     const splitTime = timeStr.split(":")
