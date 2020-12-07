@@ -50,13 +50,15 @@ const fetchSingleRecord = async (recordNum, setStateAction) => {
   for (let i = 0; i < locInfo.recordNum; i++) {
     const objToPush = {
       address: locInfo.location_address[i] || null,
-      services: locInfo.location_services[i] || null,
       state: locInfo.location_state[i] || null,
       city: locInfo.locations_city[i] || null,
       id: locInfo.locations_id[i] || null,
       air_id: orgInfo.org_locations[i] || null,
       zip: locInfo.location_zip[i] || null,
     }
+
+    if (locInfo.services && locInfo.services[i])
+      objToPush.services = locInfo.location_services[i]
     if (locInfo.location_phone && locInfo.location_phone[i])
       objToPush.phone = locInfo.location_phone[i]
     if (locInfo.location_address_2 && locInfo.location_address_2[i])
@@ -84,9 +86,10 @@ const fetchSingleRecord = async (recordNum, setStateAction) => {
   for (let i = 0; i < scheInfo.recordNum; i++) {
     const objToPush = {
       location_id: scheInfo.schedule_locations_id[i] || null,
-      air_id: orgInfo.org_schedule[i] || null,
     }
 
+    if (orgInfo.org_schedule && orgInfo.org_schedule[i])
+      objToPush.air_id = orgInfo.org_schedule[i]
     if (scheInfo.schedule_open_time && scheInfo.schedule_open_time[i])
       objToPush.open = timeParser(scheInfo.schedule_open_time[i])
     if (scheInfo.schedule_close_time && scheInfo.schedule_close_time[i])
