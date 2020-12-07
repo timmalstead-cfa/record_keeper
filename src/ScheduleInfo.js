@@ -6,7 +6,15 @@ const ScheduleInfo = ({ scheInfo, ...setters }) => {
     <section className="border pad wide info overflow column">
       <h3 className="title">Schedule Info</h3>
       {scheInfo.map((record) => {
-        const { location_name, days, open, close, weeks_open, air_id } = record
+        const {
+          location_name,
+          days,
+          open,
+          close,
+          weeks_open,
+          air_id,
+          notes,
+        } = record
         return (
           <div className="border pad">
             <p>
@@ -21,6 +29,11 @@ const ScheduleInfo = ({ scheInfo, ...setters }) => {
             <p>
               <code>WEEKS OPEN:</code> {weeks_open}
             </p>
+            {notes && (
+              <p>
+                <code>NOTES:</code> {notes}
+              </p>
+            )}
             <DeleteButton recordNumber={air_id} table="schedule" {...setters} />
           </div>
         )
