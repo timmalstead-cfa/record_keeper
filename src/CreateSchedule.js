@@ -9,11 +9,11 @@ const defaultInfo = {
   close_time: "17:00",
   days: {
     Sun: false,
-    Mon: true,
-    Tue: true,
-    Wed: true,
-    Thu: true,
-    Fri: true,
+    Mon: false,
+    Tue: false,
+    Wed: false,
+    Thu: false,
+    Fri: false,
     Sat: false,
   },
   locations: [],
@@ -177,11 +177,43 @@ const CreateSchedule = ({
     )
   }
 
+  const handleMondayThroughFriday = () =>
+    setScheduleInfo({
+      ...scheduleInfo,
+      days: {
+        Sun: false,
+        Mon: true,
+        Tue: true,
+        Wed: true,
+        Thu: true,
+        Fri: true,
+        Sat: false,
+      },
+    })
+
+  const handleAllDays = () =>
+    setScheduleInfo({
+      ...scheduleInfo,
+      days: {
+        Sun: true,
+        Mon: true,
+        Tue: true,
+        Wed: true,
+        Thu: true,
+        Fri: true,
+        Sat: true,
+      },
+    })
+
   return (
     <>
       {showCreateSchedule && (
         <>
           <div style={stackStyle}>{days}</div>
+          <button onClick={handleMondayThroughFriday}>
+            Check Monday-Friday
+          </button>
+          <button onClick={handleAllDays}>Check All Days</button>
           <div style={stackStyle}>{ordinal}</div>
           <form>
             <label for="Opening">Opening Time:</label>

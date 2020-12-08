@@ -123,13 +123,6 @@ const CreateLocation = ({
       {showCreateLocation && (
         <>
           <div style={stackStyle}>
-            <label for="city">City</label>
-            <input
-              type="text"
-              name="city"
-              value={locationInfo.city}
-              onChange={handleChange}
-            />
             <label for="address">Address</label>
             <input
               type="text"
@@ -137,8 +130,6 @@ const CreateLocation = ({
               value={locationInfo.address}
               onChange={handleChange}
             />
-          </div>
-          <div style={stackStyle}>
             <label for="address_2">Address 2</label>
             <input
               type="text"
@@ -146,6 +137,16 @@ const CreateLocation = ({
               value={locationInfo.address_2}
               onChange={handleChange}
             />
+          </div>
+          <div style={stackStyle}>
+            <label for="city">City</label>
+            <input
+              type="text"
+              name="city"
+              value={locationInfo.city}
+              onChange={handleChange}
+            />
+
             <label>State</label>
             <select value={locationInfo.state} onChange={handleChange}>
               {states.map((state) => (
