@@ -5,12 +5,29 @@ import { urlRegex } from "./helpers"
 
 const { REACT_APP_AIRTABLE_BASE, REACT_APP_AIRTABLE_API_KEY } = process.env
 
+const categories = [
+  "Select A Category",
+  "clothing",
+  "community support",
+  "employment",
+  "food",
+  "housing",
+  "legal services",
+  "medical support",
+  "mental health",
+  "resource directory",
+  "social services",
+  "substance use",
+  "transportation",
+]
+
 const initialOrgInfo = {
   org_name: "",
   org_website: "",
   org_languages_spoken: "English",
   org_customers_served: "",
   org_notes: "",
+  org_categories: "",
 }
 
 const stackStyle = {
@@ -39,6 +56,7 @@ const CreateOrganization = ({
         org_notes,
         org_customers_served,
         org_languages_spoken,
+        org_categories,
       } = orgInfo
 
       if (!org_name) throw new Error("Organization name is required")
@@ -48,6 +66,8 @@ const CreateOrganization = ({
             "If included, a complete and valid URL must be provided"
           )
       }
+      if (!org_categories || org_categories === "Select A Category")
+        throw new Error("You must select a valid category")
       // const csvCheck = /(.+?)(?:,|$)/g
       // if (org_customers_served) {
       //   if (!csvCheck.test(org_customers_served))
@@ -77,7 +97,8 @@ const CreateOrganization = ({
               "org_website": "${org_website}",
               "org_languages_spoken": "${org_languages_spoken}",
               "org_customers_served" : "${org_customers_served}",
-              "org_notes": "${org_notes}"
+              "org_notes": "${org_notes}",
+              "org_categories": [ "${org_categories}" ]
             }
           }`,
         }
@@ -135,6 +156,16 @@ const CreateOrganization = ({
           onChange={handleChange}
           value={orgInfo.org_notes}
         />
+        <label>Category:</label>
+        <select
+          name="org_categories"
+          style={{ textTransform: "capitalize" }}
+          onChange={handleChange}
+        >
+          {categories.map((category) => (
+            <option value={category}>{category}</option>
+          ))}
+        </select>
       </div>
       <button disabled={buttonDisabled} onClick={submitOrg}>
         {errorMsg || "Add New Organization"}

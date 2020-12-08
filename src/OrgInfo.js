@@ -1,5 +1,6 @@
 import DeleteButton from "./DeleteButton"
 import CreateOrganization from "./CreateOrganization"
+import AddExistingCategory from "./AddExistingCategory"
 import CreateTags from "./CreateTags"
 
 const OrgInfo = ({ orgInfo, ...setters }) => {
@@ -11,6 +12,7 @@ const OrgInfo = ({ orgInfo, ...setters }) => {
     org_notes,
     org_tags,
     org_air_id,
+    org_categories,
   } = orgInfo
   return (
     <section className="border pad wide info overflow column">
@@ -55,6 +57,14 @@ const OrgInfo = ({ orgInfo, ...setters }) => {
                 <span>{i === 0 ? tag : `, ${tag}`} </span>
               ))}
           </p>
+          <p>
+            <code>CATEGORIES:</code>{" "}
+            {org_categories?.length &&
+              org_categories.map((category, i) => (
+                <span>{i === 0 ? category : `, ${category}`} </span>
+              ))}
+          </p>
+          <AddExistingCategory org_categories={org_categories} {...setters} />
           <CreateTags orgInfo={orgInfo} {...setters} />
           <DeleteButton
             recordNumber={org_air_id}
