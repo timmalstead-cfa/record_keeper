@@ -33,10 +33,13 @@ const CreateTags = ({
     const newLocations = locations
       .map((record) => [`${record.zip}`, record.city.toLowerCase()])
       .flat(1)
-    const daysOpen = schedule
-      .map((record) => record.days.toLowerCase().split(","))
-      .flat(1)
-      .map((str) => str.trim())
+    let daysOpen = []
+    if (schedule.days) {
+      daysOpen = schedule
+        .map((record) => record.days.toLowerCase().split(","))
+        .flat(1)
+        .map((str) => str.trim())
+    }
     const servicesOffered = services.map((service) =>
       service.name.toLowerCase()
     )
