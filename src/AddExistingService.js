@@ -44,6 +44,13 @@ const AddExistingService = ({
     }
   }, [showExistingServices])
 
+  useEffect(() => {
+    setShowExistingServices(false)
+    setFetchedExistingServices([])
+    setServiceIdToAdd("")
+    setTickBoxes(null)
+  }, [org_id])
+
   const handleTick = ({ target }) => {
     const { value, checked } = target
     setTickBoxes(
@@ -98,6 +105,8 @@ const AddExistingService = ({
       console.log(patchResponse)
       setShowExistingServices(false)
       setServiceIdToAdd("")
+      setFetchedExistingServices([])
+      setTickBoxes(null)
       fetchSingleRecord(org_id, setFullFetchedRecord)
       disableButtons()
     }
