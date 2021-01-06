@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import fetchSingleRecord from "./fetchSingleRecord"
 import { states, urlRegex, emailRegex } from "./helpers"
 
@@ -31,6 +31,12 @@ const CreateLocation = ({
   const [showCreateLocation, setShowCreateLocation] = useState(false)
   const [locationInfo, setLocationInfo] = useState(defaultLocationInfo)
   const [errorMsg, setErrorMsg] = useState("")
+
+  useEffect(() => {
+    setShowCreateLocation(false)
+    setLocationInfo(defaultLocationInfo)
+    setErrorMsg("")
+  }, [org_id])
 
   const handleChange = (e) =>
     setLocationInfo({ ...locationInfo, [e.target.name]: e.target.value })

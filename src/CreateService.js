@@ -17,6 +17,12 @@ const CreateService = ({
   const [tickBoxes, setTickBoxes] = useState(null)
 
   useEffect(() => {
+    setShowServiceNameField(false)
+    setServiceName("")
+    setTickBoxes(null)
+  }, [org_id])
+
+  useEffect(() => {
     const collapsedLocations = locations.map((record) => {
       const { air_id, address, city, zip } = record
       return { air_id, label: `${address}, ${city} ${zip}`, checked: false }
@@ -100,6 +106,7 @@ const CreateService = ({
       console.log(addResponse)
       setServiceName("")
       setShowServiceNameField(false)
+      setTickBoxes(null)
       fetchSingleRecord(org_id, setFullFetchedRecord)
       disableButtons()
     }

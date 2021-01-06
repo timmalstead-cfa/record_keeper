@@ -40,6 +40,12 @@ const CreateSchedule = ({
   const [tickBoxes, setTickBoxes] = useState(null)
 
   useEffect(() => {
+    setShowCreateSchedule(false)
+    setScheduleInfo(defaultInfo)
+    setTickBoxes(null)
+  }, [org_id])
+
+  useEffect(() => {
     const collapsedLocations = locations.map((record) => {
       const { air_id, address, city, zip } = record
       return { air_id, label: `${address}, ${city} ${zip}`, checked: false }
