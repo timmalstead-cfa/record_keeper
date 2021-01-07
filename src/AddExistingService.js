@@ -38,7 +38,11 @@ const AddExistingService = ({
           }
         )
         const translatedServices = await fetchedServices.json()
-        setFetchedExistingServices(translatedServices.records)
+        const sortedServices = translatedServices.records.sort((a, b) =>
+          a.fields.name?.localeCompare(b.fields.name)
+        )
+
+        setFetchedExistingServices(sortedServices)
       }
       fetchServices()
     }
