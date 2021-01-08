@@ -220,6 +220,7 @@ const CreateSchedule = ({
             Check Monday-Friday
           </button>
           <button onClick={handleAllDays}>Check All Days</button>
+          <h4>Weeks Open</h4>
           <div style={stackStyle}>{ordinal}</div>
           <form>
             <label for="Opening">Opening Time:</label>
@@ -266,13 +267,13 @@ const CreateSchedule = ({
                   </div>
                 )
               })}
-            {/* <label>Notes:</label>
+            <label>Notes:</label>
             <input
               value={scheduleInfo.notes}
               onChange={(e) =>
                 setScheduleInfo({ ...scheduleInfo, notes: e.target.value })
               }
-            /> */}
+            />
           </form>
         </>
       )}
