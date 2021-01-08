@@ -19,6 +19,7 @@ const defaultLocationInfo = {
   phone: "",
   location_website: "",
   location_name: "",
+  location_notes: "",
   email: "",
 }
 
@@ -55,6 +56,7 @@ const CreateLocation = ({
           state,
           location_website,
           location_name,
+          location_notes,
           email,
         } = locationInfo
 
@@ -106,6 +108,7 @@ const CreateLocation = ({
                 "phone": "${phone}",
                 "location_website": "${location_website}",
                 "location_name": "${location_name}",
+                "location_notes": "${location_notes}",
                 "email": "${email}"
               }
             }`,
@@ -199,11 +202,18 @@ const CreateLocation = ({
             />
           </div>
           <div style={stackStyle}>
-            <label for="email">Email</label>
+            <label for="email">Location Specific Email</label>
             <input
               type="text"
               name="email"
               value={locationInfo.email}
+              onChange={handleChange}
+            />
+            <label for="location_notes">Location Specific Notes</label>
+            <input
+              type="text"
+              name="location_notes"
+              value={locationInfo.location_notes}
               onChange={handleChange}
             />
           </div>
