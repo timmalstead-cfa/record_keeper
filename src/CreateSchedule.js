@@ -84,11 +84,7 @@ const CreateSchedule = ({
     if (!showCreateSchedule) {
       setShowCreateSchedule(true)
     } else if (showCreateSchedule && locationsToLink.length && newDaysString) {
-      const {
-        open_time,
-        close_time,
-        // notes
-      } = scheduleInfo
+      const { open_time, close_time, notes } = scheduleInfo
 
       const addSchedule = await fetch(
         `https://api.airtable.com/v0/${REACT_APP_AIRTABLE_BASE}/schedule`,
@@ -103,6 +99,7 @@ const CreateSchedule = ({
               "open_time": "${open_time}",
               "close_time": "${close_time}",
               "days": "${newDaysString}",
+              "notes": "${notes}",
               "locations": ${JSON.stringify(locationsToLink)},
               "ordinal_open": "${ordinalString}",
               "organization": [
