@@ -3,6 +3,15 @@ import fetchSingleRecord from "./fetchSingleRecord"
 
 const { REACT_APP_AIRTABLE_BASE, REACT_APP_AIRTABLE_API_KEY } = process.env
 
+const fetchString = `https://api.airtable.com/v0/${REACT_APP_AIRTABLE_BASE}/services?fields%5B%5D=name&fields%5B%5D=locations&fields%5B%5D=organization`
+
+const fetchOptionsObject = {
+  method: "GET",
+  headers: {
+    Authorization: `Bearer ${REACT_APP_AIRTABLE_API_KEY}`,
+  },
+}
+
 const AddExistingService = ({
   locations,
   org_id,
@@ -28,16 +37,30 @@ const AddExistingService = ({
   useEffect(() => {
     if (showExistingServices) {
       const fetchServices = async () => {
-        const fetchedServices = await fetch(
-          `https://api.airtable.com/v0/${REACT_APP_AIRTABLE_BASE}/services?fields%5B%5D=name&fields%5B%5D=locations&fields%5B%5D=organization`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${REACT_APP_AIRTABLE_API_KEY}`,
-            },
-          }
-        )
-        const translatedServices = await fetchedServices.json()
+        const fetchedServices = await fetch(fetchString, fetchOptionsObject)
+        let translatedServices = await fetchedServices.json()
+
+        while (translatedServices.offset) {
+          window.setTimeout(
+            () => console.log("intentional delay to not overload api"),
+            250
+          )
+          const { offset, records } = translatedServices
+          const nextPage = await fetch(
+            `${fetchString}&offset=${offset}`,
+            fetchOptionsObject
+          )
+          const translatedNextPage = await nextPage.json()
+
+          const [pageRecords, pageOffset] = [
+            translatedNextPage.records,
+            translatedNextPage.offset,
+          ]
+          translatedServices.records = [...records, ...pageRecords]
+          if (pageOffset) translatedServices.offset = pageOffset
+          else delete translatedServices.offset
+        }
+
         const sortedServices = translatedServices.records.sort((a, b) =>
           a.fields.name?.localeCompare(b.fields.name)
         )
