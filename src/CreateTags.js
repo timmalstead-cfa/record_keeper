@@ -10,6 +10,7 @@ const CreateTags = ({
 }) => {
   const createTags = async () => {
     const {
+      org_categories,
       org_tags,
       org_customers_served,
       org_languages_spoken,
@@ -31,7 +32,11 @@ const CreateTags = ({
       .map((language) => language.toLowerCase().trim())
     const name = org_name.toLowerCase()
     const newLocations = locations
-      .map((record) => [`${record.zip}`, record.city.toLowerCase()])
+      .map((record) => [
+        `${record.zip}`,
+        record.city.toLowerCase(),
+        record.address.toLowerCase(),
+      ])
       .flat(1)
     let daysOpen = []
     if (schedule.days) {
@@ -44,6 +49,10 @@ const CreateTags = ({
       service.name.toLowerCase()
     )
 
+    const newCategories = org_categories.map((category) =>
+      category.toLowerCase()
+    )
+
     const finalTags = [
       ...new Set([
         name,
@@ -51,17 +60,12 @@ const CreateTags = ({
         ...currentTags,
         ...languages,
         ...newLocations,
+        ...newCategories,
         ...daysOpen,
         ...servicesOffered,
       ]),
     ]
     console.log(finalTags)
-
-    // const addTagResponse = `{
-    //     "fields": {
-    //         "org_tags": ${JSON.stringify(finalTags)}
-    //     }
-    // }`
 
     const addTags = await fetch(
       `https://api.airtable.com/v0/${REACT_APP_AIRTABLE_BASE}/organization/${org_id}`,
